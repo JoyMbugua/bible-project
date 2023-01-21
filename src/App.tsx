@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import { useGetDailyVerseQuery } from './store/services/bible'
+import './App.scss';
+import BooksList from './components/BookList';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const { data: dailyVerse, isFetching, error } = useGetDailyVerseQuery()
+
+    if (isFetching) return <p>fetching daily verse...</p>
+    return (
+        <div className='body'>
+            <header>
+                <div>
+                    <h1>the gospel project</h1>
+                    <div className="verse">
+                        <p>{dailyVerse?.data.passages[0].content.replace(/(<([^>]+)>)/ig, '')}</p>
+                        <p>{dailyVerse?.data.passages[0].reference}</p>
+                    </div>
+                </div>
+            </header>
+            <article>
+
+                <BooksList />
+            </article>
+            <footer>Made with love by WM</footer>
+        </div>
+    )
 }
 
-export default App;
+export default App
