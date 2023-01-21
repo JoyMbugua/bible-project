@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
+
+.text {
+  font-size: 20px;
+  display: flex;
+  user-select: none;
+
+  .wrapper {
+    padding: 20px 0px 0px 20px;
+    .letter {
+      transition: ease-out 1s;
+      transform: translateY(40%);
+    }
+    .shadow {
+      transform: scale(1, -1);
+      color: #999;
+      transition: ease-in 5s, ease-out 5s;
+    }
+    &:hover {
+      .letter {
+        transform: translateY(-200%);
+      }
+      .shadow {
+        opacity: 0;
+        transform: translateY(200%);
+      }
+    }
+  }
+}
+
+.GENE {
+  text-transform: capitalize;
+  font-size: 15rem;
+  height: 300px;
+  line-height: 300px;
+  text-align: center;
+  color: #fcedd8;
+  background: #d52e3f;
+  font-family: 'Niconne', cursive;
+  font-weight: 700;
+  text-shadow: 5px 5px 0px #eb452b, 10px 10px 0px #efa032, 15px 15px 0px #46b59b,
+    20px 20px 0px #017e7f, 25px 25px 0px #052939, 30px 30px 0px #c11a2b,
+    35px 35px 0px #c11a2b, 40px 40px 0px #c11a2b, 45px 45px 0px #c11a2b;
+}
+
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .book-container {
+    margin: 0.5em;
+    width: 300px;
+    height: 300px;
+    border: 2px double #c11a2b;
+
+    .book {
+      width: 180px;
+      height: 240px;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+    //   transform: translate(-50%, -50%);
+      background: #f33139;
+      border-radius: 20px 16px 12px 32px;
+      background-image: linear-gradient(
+        to right,
+        #d11f2f 48px,
+        #ba0716 50px,
+        transparent 50px
+      );
+    }
+    .book:after {
+        position: absolute;
+        content: "";
+        height: 40px;
+        width: 174px;
+        background: white;
+        border-radius: 32px 4px 4px 32px;
+        box-shadow: inset 4px 6px 0px 0px #e4e0ce;
+        bottom: 2px;
+        right: 0px;
+        // align-self: flex-end;
+    }
+    .book:before {
+        height: 20px;
+        width: 150px;
+        background: #d11f2f;
+        border-radius: 20px;
+        box-shadow: 0px 36px #d11f2f;
+    }
+    
+  }
+}
+
+h3 {
+    text-align: center;
+}
