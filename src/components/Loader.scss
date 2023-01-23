@@ -1,0 +1,44 @@
+.container {
+    max-width: 500px;
+    width: 30%;
+    margin: 0 auto;
+}
+.loading {
+  display: flex;
+  justify-content: center;
+  div {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    transition: transform 0.3s infinite;
+    margin-left: .2em;
+  }
+  :first-child {
+    background-color: #e9c46a;
+    animation: loadingCircle 0.5s infinite alternate;
+  }
+  :nth-child(2) {
+    background-color: #264653;
+    animation: loadingCircle 0.5s infinite 0.2s alternate;
+  }
+  :nth-child(3) {
+    background-color: #2a9d8f;
+    animation: loadingCircle 0.5s infinite 0.35s alternate;
+  }
+  :nth-child(4) {
+    background-color: #e76f51;
+    animation: loadingCircle 0.5s infinite 0.5s alternate;
+  }
+}
+
+@keyframes loadingCircle {
+    0% {
+        transform: translateY(0);
+    }
+  0% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(5px);
+  }
+}

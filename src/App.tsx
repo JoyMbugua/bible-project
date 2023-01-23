@@ -2,16 +2,17 @@ import { useState } from 'react'
 import { useGetDailyVerseQuery } from './store/services/bible'
 import './App.scss';
 import BooksList from './components/BookList';
+import Loader from './components/Loader';
 
 function App() {
     const { data: dailyVerse, isFetching, error } = useGetDailyVerseQuery()
 
-    if (isFetching) return <p>fetching daily verse...</p>
     return (
         <div className='body'>
             <header>
                 <div>
                     <h1>the gospel project</h1>
+                    {isFetching && <Loader />}
                     <div className="verse">
                         <p>{dailyVerse?.data.passages[0].content.replace(/(<([^>]+)>)/ig, '')}</p>
                         <p>{dailyVerse?.data.passages[0].reference}</p>
