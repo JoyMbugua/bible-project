@@ -1,8 +1,10 @@
-import { AnyAction, configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { bibleApi } from './services/bible';
+import coverReducer from './features/covers';
 
 const store = configureStore({
   reducer: {
+    covers: coverReducer,
     [bibleApi.reducerPath]: bibleApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(bibleApi.middleware)

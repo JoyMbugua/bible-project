@@ -13,7 +13,7 @@ export const bibleApi = createApi({
   endpoints: (builder) => ({
     getBibles: builder.query({ query: () => `/bibles` }),
     getDailyVerse: builder.query<any, void>({ query: () => `/bibles/${process.env.REACT_APP_BIBLE_ID}/search?query=${verseOfTheDay}`}),
-    getBooks: builder.query<any, void>({ query:() => `/bibles/${process.env.REACT_APP_BIBLE_ID}/books`})
+    getBooks: builder.query<any, void>({ query:() => `/bibles/${process.env.REACT_APP_BIBLE_ID}/books`}),
   }),
 });
 
