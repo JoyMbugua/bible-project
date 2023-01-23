@@ -1,10 +1,26 @@
 import { useGetBooksQuery } from '../store/services/bible';
 import './BookList.scss';
-import { useEffect, useState } from 'react';
+import { Cloudinary } from "@cloudinary/url-gen";
 
+const cloud = new Cloudinary({
+    cloud: {
+        cloudName: process.env.REACT_APP_CLOUD_NAME
+    }
+})
+
+function Book({ book }) {
+    const testImage = cloud.image(`bible-covers/${book.id}`)
+
+    return (
+        <div className="book" style={{ backgroundImage: `url(${testImage.toURL()})` }}>
+            <h3>{book.name}</h3>
+        </div>
+    )
+
+}
 
 export default function BooksList() {
-    const [covers, setVCovers] = useState();
+
     const {
         data: booksData,
         isFetching: isFetchingBooks,
@@ -18,9 +34,7 @@ export default function BooksList() {
         <div className="book-list">
             {booksData.data.map((book) => (
                 <div className="book-container" key={book.id}>
-                    <div className="book">
-                        <h3>{book.name}</h3>
-                    </div>
+                    <Book book={book} />
                 </div>
             ))}
         </div>
