@@ -1,9 +1,14 @@
 import { useGetBooksQuery } from '../store/services/bible';
 import './BookList.scss';
 import { Cloudinary } from "@cloudinary/url-gen";
-import { Key, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { BibleBook } from '../types';
 import Loader from './Loader';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { selectCovers } from '../store/features/covers';
+import { RootState } from '../store';
+import { useTypedSelector } from '../store/hooks';
 
 const cloud = new Cloudinary({
     cloud: {
@@ -13,6 +18,7 @@ const cloud = new Cloudinary({
 
 function Book({ book }) {
     const bookImage = cloud.image(`bible-covers/${book.id}`)
+    const images = cloud.image('/bible-covers')
 
     return (
         <div className="book" style={{ backgroundImage: `url(${bookImage.toURL()})` }}>
@@ -35,7 +41,12 @@ export default function BooksList() {
     const [bookList, setBookList] = useState<BibleBook[]>([])
     const itemsPerPage = 9;
     const isLastPage = useMemo(() => (page * itemsPerPage === booksData?.length), [booksData, page])
+    const resources = useTypedSelector(selectCovers);
 
+    useEffect(() => {
+        console.log({ resources });
+
+    }, [])
 
     useEffect(() => {
         if (isLastPage) setHasMore(false)
