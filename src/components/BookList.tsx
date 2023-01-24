@@ -9,24 +9,13 @@ import { useSelector } from 'react-redux';
 import { selectCovers } from '../store/features/covers';
 import { RootState } from '../store';
 import { useTypedSelector } from '../store/hooks';
+import Img from '../assets/art2.png'
 
 const cloud = new Cloudinary({
     cloud: {
         cloudName: process.env.REACT_APP_CLOUD_NAME
     }
 })
-
-function Book({ book }) {
-    const bookImage = cloud.image(`bible-covers/${book.id}`)
-    const images = cloud.image('/bible-covers')
-
-    return (
-        <div className="book" style={{ backgroundImage: `url(${bookImage.toURL()})` }}>
-            <h3>{book.name}</h3>
-        </div>
-    )
-
-}
 
 export default function BooksList() {
     const {
@@ -42,11 +31,6 @@ export default function BooksList() {
     const itemsPerPage = 9;
     const isLastPage = useMemo(() => (page * itemsPerPage === booksData?.length), [booksData, page])
     const resources = useTypedSelector(selectCovers);
-
-    useEffect(() => {
-        console.log({ resources });
-
-    }, [])
 
     useEffect(() => {
         if (isLastPage) setHasMore(false)
@@ -83,11 +67,18 @@ export default function BooksList() {
     return (
         <div className="book-list">
             {isFetchingBooks && <Loader />}
-            {bookList.map((book) => (
-                <div className="book-container" key={book.id} ref={isLastPage ? null : lastRowRef}>
-                    <Book book={book} />
-                </div>
-            ))}
+            {bookList.map((book) => {
+                return (
+                    <div className="book-container" key={book.id} ref={isLastPage ? null : lastRowRef}>
+                        <div className="book" style={{ backgroundImage: `url(${resources[book.id]?.imgUrl})` }}>
+                            <div className="heading">
+                                <img src={Img} alt="" />
+                                <div className="title">{book.name}</div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            })}
             {lastItem && <Loader />}
         </div>
     );

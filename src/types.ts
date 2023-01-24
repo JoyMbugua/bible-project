@@ -14,8 +14,13 @@ export interface Cover {
   height: number;
   type: string;
   created_at: string;
+  imgUrl?: string
 }
 
 export interface CoverResults {
   resources: Cover[];
+}
+
+export interface FormattedCover {
+ [public_id: string]: Cover;
 }

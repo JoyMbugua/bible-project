@@ -57,7 +57,9 @@
     .book {
       width: 180px;
       height: 240px;
+      display: flex;
       justify-content: center;
+      text-align: center;
       align-items: center;
       position: absolute;
       //   transform: translate(-50%, -50%);
@@ -65,7 +67,7 @@
       border-radius: 20px 16px 12px 32px;
       background-image: linear-gradient(
         to right,
-        #d11f2f 48px,
+        #1c2534 48px,
         #ba0716 50px,
         transparent 50px
       );
@@ -95,6 +97,23 @@
   }
 }
 
-h3 {
+.heading {
+  width: 180px;
+  margin-top: -20px;
   text-align: center;
+  background-color: rgba($color: #fff, $alpha: 0.85);
+
+  img {
+    width: 70px;
+    height: 20px;
+  }
+}
+
+.title {
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1.2rem;
+  margin-top: -5px;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
