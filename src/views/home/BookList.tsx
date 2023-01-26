@@ -1,15 +1,14 @@
-import { useGetBooksQuery } from '../store/services/bible';
-import './BookList.scss';
 import { Cloudinary } from "@cloudinary/url-gen";
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { BibleBook } from '../types';
-import Loader from './Loader';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { selectCovers } from '../store/features/covers';
-import { RootState } from '../store';
-import { useTypedSelector } from '../store/hooks';
-import Img from '../assets/art2.png'
+import { Link } from 'react-router-dom';
+import Img from '../../assets/art2.png';
+import Loader from '../../components/Loader';
+import { selectCovers } from '../../store/features/covers';
+import { useTypedSelector } from '../../store/hooks';
+import { useGetBooksQuery } from '../../store/services/bible';
+import { BibleBook } from '../../types';
+import './BookList.scss';
+import DailyVerse from "./daily-verse";
 
 const cloud = new Cloudinary({
     cloud: {
@@ -29,7 +28,7 @@ export default function BooksList() {
     const [lastItem, setLastItem] = useState(false)
     const [bookList, setBookList] = useState<BibleBook[]>([])
     const itemsPerPage = 9;
-    const isLastPage = useMemo(() => (page * itemsPerPage === booksData?.length), [booksData, page])
+    const isLastPage = useMemo(() => (page * itemsPerPage >= 66), [page])
     const resources = useTypedSelector(selectCovers);
 
     useEffect(() => {
@@ -65,21 +64,26 @@ export default function BooksList() {
     if (booksError) return <p>Ooopsie...something went wrong</p>;
 
     return (
-        <div className="book-list">
-            {isFetchingBooks && <Loader />}
-            {bookList.map((book) => {
-                return (
-                    <div className="book-container" key={book.id} ref={isLastPage ? null : lastRowRef}>
-                        <div className="book" style={{ backgroundImage: `url(${resources[book.id]?.imgUrl})` }}>
-                            <div className="heading">
-                                <img src={Img} alt="" />
-                                <div className="title">{book.name}</div>
+        <>
+            <DailyVerse />
+            <div className="book-list">
+                {isFetchingBooks && <Loader />}
+                {bookList.map((book) => {
+                    return (
+                        <Link key={book.id} to={`/${book.id}`}>
+                            <div className="book-container" ref={isLastPage ? null : lastRowRef}>
+                                <div className="book" style={{ backgroundImage: `url(${resources[book.id]?.imgUrl})` }}>
+                                    <div className="heading">
+                                        <img src={Img} alt="" />
+                                        <div className="title">{book.name}</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                )
-            })}
-            {lastItem && <Loader />}
-        </div>
+                        </Link>
+                    )
+                })}
+                {lastItem && hasMore && <Loader />}
+            </div>
+        </>
     );
 }

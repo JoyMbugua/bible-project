@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bebas+Neue&family=Gentium+Book+Basic&display=swap');
+
+.body {
+  display: grid;
+  grid-template-columns: 100vw;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 10px;
+  min-height: 100vh;
+  background-color: whitesmoke;
+  color: #1e1f1e;
+  //   background-image: url(./assets/bg.webp);
+  font-family: 'Gentium Book Basic', serif;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Alfa Slab One', cursive;
+  color: #555;
+  font-size: 2.5rem;
+  text-shadow: #ededed 3px 2px 0;
+}

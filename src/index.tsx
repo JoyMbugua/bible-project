@@ -1,18 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './store';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Layout from './layout';
+import BibleBook from './views/books';
+import HomePage from './views/home';
+import ErrorPage from './components/error-page';
 
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <Layout />,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                errorElement: <ErrorPage />,
+                children: [
+                    { index: true, element: <HomePage /> },
+                    {
+                        path: '/:bookId',
+                        element: <BibleBook />
+                    }
+                ]
+            }
+        ]
+    }
+])
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <App />
+            <RouterProvider router={router} />
         </Provider>
     </React.StrictMode>
 );

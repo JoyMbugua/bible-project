@@ -28,21 +28,6 @@
   }
 }
 
-.GENE {
-  text-transform: capitalize;
-  font-size: 15rem;
-  height: 300px;
-  line-height: 300px;
-  text-align: center;
-  color: #fcedd8;
-  background: #d52e3f;
-  font-family: 'Niconne', cursive;
-  font-weight: 700;
-  text-shadow: 5px 5px 0px #eb452b, 10px 10px 0px #efa032, 15px 15px 0px #46b59b,
-    20px 20px 0px #017e7f, 25px 25px 0px #052939, 30px 30px 0px #c11a2b,
-    35px 35px 0px #c11a2b, 40px 40px 0px #c11a2b, 45px 45px 0px #c11a2b;
-}
-
 .book-list {
   display: flex;
   flex-wrap: wrap;
@@ -116,4 +101,17 @@
   margin-top: -5px;
   font-weight: bold;
   letter-spacing: 2px;
+}
+
+.verse {
+  display: block;
+  text-align: center;
+  color: #1c2534;
+  max-width: 800px;
+  margin: 3em auto;
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 180%;
+  border-top: 4px double #aaa;
+  border-bottom: 4px double #aaa;
 }

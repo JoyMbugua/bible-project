@@ -24,3 +24,9 @@ export interface CoverResults {
 export interface FormattedCover {
  [public_id: string]: Cover;
 }
+
+export interface Chapter {
+    reference: string,
+    id: string,
+    number: number
+}

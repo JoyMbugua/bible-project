@@ -12,9 +12,23 @@ export const bibleApi = createApi({
   }),
   endpoints: (builder) => ({
     getBibles: builder.query({ query: () => `/bibles` }),
-    getDailyVerse: builder.query<any, void>({ query: () => `/bibles/${process.env.REACT_APP_BIBLE_ID}/search?query=${verseOfTheDay}`}),
-    getBooks: builder.query<any, void>({ query:() => `/bibles/${process.env.REACT_APP_BIBLE_ID}/books`}),
+    getDailyVerse: builder.query<any, void>({
+      query: () =>
+        `/bibles/${process.env.REACT_APP_BIBLE_ID}/search?query=${verseOfTheDay}`,
+    }),
+    getBooks: builder.query<any, void>({
+      query: () => `/bibles/${process.env.REACT_APP_BIBLE_ID}/books`,
+    }),
+    getChapters: builder.query({
+      query: (bookId) =>
+        `/bibles/${process.env.REACT_APP_BIBLE_ID}/books/${bookId}/chapters`,
+    }),
   }),
 });
 
-export const { useGetBiblesQuery, useGetDailyVerseQuery, useGetBooksQuery } = bibleApi;
+export const {
+  useGetBiblesQuery,
+  useGetDailyVerseQuery,
+  useGetBooksQuery,
+  useGetChaptersQuery,
+} = bibleApi;
