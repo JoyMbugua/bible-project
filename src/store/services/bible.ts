@@ -23,6 +23,7 @@ export const bibleApi = createApi({
       query: (bookId) =>
         `/bibles/${process.env.REACT_APP_BIBLE_ID}/books/${bookId}/chapters`,
     }),
+    getChapterContent: builder.query({ query: (chapterId) => `/bibles/${process.env.REACT_APP_BIBLE_ID}/chapters/${chapterId}`})
   }),
 });
 
@@ -31,4 +32,6 @@ export const {
   useGetDailyVerseQuery,
   useGetBooksQuery,
   useGetChaptersQuery,
+  useGetChapterContentQuery,
+  useLazyGetChapterContentQuery
 } = bibleApi;

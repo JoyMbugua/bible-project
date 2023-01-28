@@ -14,7 +14,9 @@ export default function Layout() {
     return (
         <div className="body">
             <Header />
-            <Outlet />
+            <div className="details">
+                <Outlet />
+            </div>
             <footer>Made with love by WM</footer>
         </div>
     );
