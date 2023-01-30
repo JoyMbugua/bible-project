@@ -1,6 +1,7 @@
-import { IconCopy } from '@tabler/icons-react';
-import { Fragment, useState } from 'react';
+import { IconClipboard, IconClipboardCheck, IconCopy } from '@tabler/icons-react';
+import { Fragment, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import Alert from '../../components/Alert';
 import Loader from '../../components/Loader';
 import { useGetChapterContentQuery, useGetChaptersQuery } from '../../store/services/bible';
 import { Chapter as ChapterType } from '../../types';
@@ -12,6 +13,8 @@ interface Highlight {
 export default function Chapter() {
     const { bookId, chapterId } = useParams()
     const [isHighlighted, setIsHighlighted] = useState(false)
+    const [status, setStatus] = useState('')
+    const [message, setMessage] = useState(null)
     const [highlightedVerse, setHighlightedVerse] = useState<Highlight>({ text: '', id: '' })
     const { data, isFetching, error } = useGetChaptersQuery(bookId)
     const actualChapterId = data.data.slice(1).map((item: ChapterType) => item.id)[Number(chapterId) - 1]
@@ -24,6 +27,7 @@ export default function Chapter() {
 
     return (
         <div className="chapter">
+            {status === 'success' && <Alert message={message} status={status} />}
             <h3>{intro}</h3>
             {
                 chapterData.slice(1).map((par, i: number) => (
@@ -44,7 +48,7 @@ export default function Chapter() {
                             <sup className='verseNo'>{i + 1}</sup>
                             {par}
                             {isHighlighted && highlightedVerse.id === i && (
-                                <ActionsModal verse={highlightedVerse} />
+                                <ActionsModal verse={highlightedVerse} book={bookId} setStatus={setStatus} setMessage={setMessage} />
                             )}
                         </div>
 
@@ -57,13 +61,27 @@ export default function Chapter() {
     )
 }
 
-function ActionsModal({ verse }) {
+function ActionsModal({ verse, book, setStatus, setMessage }) {
+
+    const copyVerse = async () => {
+        try {
+            await navigator.clipboard.writeText(`${verse.text}\n ~ ${book}:${verse.id + 1}`)
+            setStatus('success')
+            setMessage("verse copied!")
+        } catch (err) {
+            setStatus('failed')
+        }
+    }
+
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage(null)
+        }, 5000)
+    }, [])
 
     return (
-        <span className='copier' onClick={() => {
-            console.log(verse)
-        }}>
-            <IconCopy />
+        <span className='copier' onClick={copyVerse}>
+            <IconClipboard />
             copy
         </span>
     )
