@@ -70,7 +70,7 @@ export default function BooksList() {
                 {isFetchingBooks && <Loader />}
                 {bookList.map((book) => {
                     return (
-                        <Link key={book.id} to={`/${book.id}`}>
+                        <Link key={book.id} to={`/${book.id}/1`}>
                             <div className="book-container" ref={isLastPage ? null : lastRowRef}>
                                 <div className="book" style={{ backgroundImage: `url(${resources[book.id]?.imgUrl})` }}>
                                     <div className="heading">

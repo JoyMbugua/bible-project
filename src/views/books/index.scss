@@ -1,8 +1,9 @@
 .bibleBook {
   display: flex;
+  gap: 2em;
 }
 #sidebar {
-  width: 14rem;
+  width: 15rem;
   background-color: #f7f7f7;
   border-right: solid 1px #e3e3e3;
   display: flex;
@@ -10,6 +11,7 @@
   margin-left: 20px;
   border: 1px solid #e0dede;
   border-radius: 20px;
+  height: 600px;
 }
 
 #sidebar > * {
@@ -84,7 +86,7 @@ i {
   overflow: hidden;
 
   white-space: pre;
-  //   padding: 0.5rem;
+  padding: 0.5rem;
   border-radius: 8px;
   color: inherit;
   text-decoration: none;
@@ -106,4 +108,24 @@ i {
 
 .content {
     background-image: url(../../assets/bg.webp);
+    width: 70%;
+    border-radius: 20px;
+    padding: 20px;
+    font-size: 1rem;
+}
+
+.verseNo {
+    user-select: none;
+}
+.copier {
+    display: inline-flex;
+   color: #e76f51;
+//    color: white;
+   padding: 5px 15px;
+   margin-left: 5px;
+   margin-top: 5px;
+   z-index: 99;
+   border-radius: 10px;
+   border: 1px solid #e76f51;
+   align-items: center;
 }

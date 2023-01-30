@@ -18,6 +18,7 @@ export const bibleApi = createApi({
     }),
     getBooks: builder.query<any, void>({
       query: () => `/bibles/${process.env.REACT_APP_BIBLE_ID}/books`,
+      keepUnusedDataFor: Infinity
     }),
     getChapters: builder.query({
       query: (bookId) =>

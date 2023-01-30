@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -9,6 +8,7 @@ import Layout from './layout';
 import BibleBook from './views/books';
 import HomePage from './views/home';
 import ErrorPage from './components/error-page';
+import Chapter from './views/books/chapter';
 
 const router = createBrowserRouter([
     {
@@ -22,7 +22,14 @@ const router = createBrowserRouter([
                     { index: true, element: <HomePage /> },
                     {
                         path: '/:bookId',
-                        element: <BibleBook />
+                        element: <BibleBook />,
+                        errorElement: <ErrorPage />,
+                        children: [
+                            {
+                                path: ':chapterId',
+                                element: <Chapter />
+                            }
+                        ]
                     }
                 ]
             }
