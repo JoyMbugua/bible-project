@@ -9,3 +9,4 @@ View all the books of the Bible
 - back button
 - search
 - footer
+- - users can favorite verses and see them

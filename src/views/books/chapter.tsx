@@ -3,6 +3,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import Alert from '../../components/Alert';
 import Loader from '../../components/Loader';
+import PreviousNext from '../../components/previous-next';
 import { useGetChapterContentQuery, useGetChaptersQuery } from '../../store/services/bible';
 import { Chapter as ChapterType } from '../../types';
 
@@ -29,34 +30,39 @@ export default function Chapter() {
         <div className="chapter">
             {status === 'success' && <Alert message={message} status={status} />}
             <h3>{intro}</h3>
-            {
-                chapterData.slice(1).map((par, i: number) => (
-                    <Fragment key={i}>
-                        <div onClick={() => {
-                            const selection = window.getSelection() || ''
-                            if (selection.toString().length > 0) {
-                                setIsHighlighted(true)
-                                let selectedText = selection.toString();
-                                setHighlightedVerse({
-                                    text: selectedText,
-                                    id: i
-                                })
-                            } else {
-                                setIsHighlighted(false)
-                            }
-                        }}>
-                            <sup className='verseNo'>{i + 1}</sup>
-                            {par}
-                            {isHighlighted && highlightedVerse.id === i && (
-                                <ActionsModal verse={highlightedVerse} book={bookId} setStatus={setStatus} setMessage={setMessage} />
-                            )}
-                        </div>
+            <article>
+                {
+                    chapterData.slice(1).map((par: string, i: number) => (
+                        <Fragment key={i}>
+                            <div onClick={() => {
+                                const selection = window.getSelection() || ''
+                                if (selection.toString().length > 0) {
+                                    setIsHighlighted(true)
+                                    let selectedText = selection.toString();
+                                    setHighlightedVerse({
+                                        text: selectedText,
+                                        id: i
+                                    })
+                                } else {
+                                    setIsHighlighted(false)
+                                }
+                            }}>
+                                <sup className='verseNo'>{i + 1}</sup>
+                                {par}
+                                {isHighlighted && highlightedVerse.id === i && (
+                                    <ActionsModal verse={highlightedVerse} book={bookId} setStatus={setStatus} setMessage={setMessage} />
+                                )}
+                            </div>
 
-                        <br />
-                    </Fragment>
-                ))
+                            <br />
+                        </Fragment>
+                    ))
 
-            }
+                }
+            </article>
+            <div className="navigate">
+                <PreviousNext />
+            </div>
         </div >
     )
 }

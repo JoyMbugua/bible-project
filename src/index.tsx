@@ -9,6 +9,7 @@ import BibleBook from './views/books';
 import HomePage from './views/home';
 import ErrorPage from './components/error-page';
 import Chapter from './views/books/chapter';
+import './root.scss'
 
 const router = createBrowserRouter([
     {

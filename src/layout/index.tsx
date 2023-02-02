@@ -17,7 +17,7 @@ export default function Layout() {
             <div className="details">
                 <Outlet />
             </div>
-            <footer>Made with love by WM</footer>
+            <footer>Made with &#9829; by WM</footer>
         </div>
     );
 }

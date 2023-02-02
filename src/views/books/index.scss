@@ -1,5 +1,6 @@
 .bibleBook {
   display: flex;
+  justify-content: center;
   gap: 2em;
 }
 #sidebar {
@@ -107,25 +108,37 @@ i {
 }
 
 .content {
-    background-image: url(../../assets/bg.webp);
-    width: 70%;
-    border-radius: 20px;
-    padding: 20px;
-    font-size: 1rem;
+  background-image: url(../../assets/bg.webp);
+  width: 70%;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 1rem;
 }
 
 .verseNo {
-    user-select: none;
+  user-select: none;
 }
 .copier {
-    display: inline-flex;
-   color: #e76f51;
-//    color: white;
-   padding: 5px 15px;
-   margin-left: 5px;
-   margin-top: 5px;
-   z-index: 99;
-   border-radius: 10px;
-   border: 1px solid #e76f51;
-   align-items: center;
+  display: inline-flex;
+  color: #e76f51;
+  //    color: white;
+  padding: 5px 15px;
+  margin-left: 5px;
+  margin-top: 5px;
+  z-index: 99;
+  border-radius: 10px;
+  border: 1px solid #e76f51;
+  align-items: center;
+}
+
+.chapter article {
+  width: 100%;
+  column-width: 400px;
+  column-gap: 2em;
+}
+
+@media screen and (max-width: 767px) {
+  #sidebar {
+    display: none;
+  }
 }
