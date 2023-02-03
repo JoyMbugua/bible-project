@@ -1,5 +1,6 @@
 import { Cloudinary } from "@cloudinary/url-gen";
 import { Link } from 'react-router-dom';
+import { FixedSizeList } from "react-window";
 import Img from '../../assets/art2.png';
 import Loader from '../../components/Loader';
 import { selectCovers } from '../../store/features/covers';
@@ -28,21 +29,29 @@ export default function BooksList() {
             <DailyVerse />
             <div className="book-list">
                 {isFetchingBooks && <Loader />}
-                {!!booksData && booksData.data.map((book) => {
-                    return (
-                        <Link key={book.id} to={`/${book.id}/1`}>
-                            <div className="book-container">
-                                <div className="book" style={{ backgroundImage: `url(${resources[book.id]?.imgUrl})` }}>
-                                    <div className="heading">
-                                        <img src={Img} alt="" />
-                                        <div className="title">{book.name}</div>
-                                    </div>
+                {booksData && (
+                    <FixedSizeList height={600} width={`auto`} itemCount={booksData.data.length} itemSize={35} >
+                        {({ index, style }) => {
+                            const book = booksData.data[index];
+                            return (
+                                <div style={style}>
+                                    <Link key={book.id} to={`/${book.id}/1`}>
+                                        <div className="book-container">
+                                            <div className="book" style={{ backgroundImage: `url(${resources[book.id]?.imgUrl})` }}>
+                                                <div className="heading">
+                                                    <img src={Img} alt="" />
+                                                    <div className="title">{book.name}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Link>
                                 </div>
-                            </div>
-                        </Link>
-                    )
-                })}
-                {/* {lastItem && hasMore && <Loader />} */}
+                            )
+                        }}
+
+                    </FixedSizeList>
+                )}
+
             </div>
         </>
     );
