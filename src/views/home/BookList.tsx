@@ -30,7 +30,7 @@ export default function BooksList() {
             <div className="book-list">
                 {isFetchingBooks && <Loader />}
                 {booksData && (
-                    <FixedSizeList height={600} width={`auto`} itemCount={booksData.data.length} itemSize={35} >
+                    <FixedSizeList height={600} width={800} itemCount={booksData.data.length} itemSize={100} layout="horizontal" >
                         {({ index, style }) => {
                             const book = booksData.data[index];
                             return (
