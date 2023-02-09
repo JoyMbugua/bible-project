@@ -1,9 +1,11 @@
 import BooksList from "./BookList";
+import DailyVerse from "./daily-verse";
 
 export default function HomePage() {
-  return (
-    <article>
-      <BooksList />
-    </article>
-  );
+    return (
+        <article>
+            <DailyVerse />
+            <BooksList />
+        </article>
+    );
 }
