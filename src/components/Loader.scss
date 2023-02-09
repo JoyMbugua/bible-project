@@ -1,7 +1,15 @@
+:root {
+  --color-orange: #e76f51;
+  --color-green: #2a9d8f;
+  --color-yellow: #e9c46a;
+  --dark-blue: #264653;
+  --light-text: #fff;
+}
+
 .container {
-    max-width: 500px;
-    width: 30%;
-    margin: 0 auto;
+  max-width: 500px;
+  width: 30%;
+  margin: 0 auto;
 }
 .loading {
   display: flex;
@@ -11,7 +19,7 @@
     height: 10px;
     border-radius: 100%;
     transition: transform 0.3s infinite;
-    margin-left: .2em;
+    margin-left: 0.2em;
   }
   :first-child {
     background-color: #e9c46a;
@@ -32,9 +40,9 @@
 }
 
 @keyframes loadingCircle {
-    0% {
-        transform: translateY(0);
-    }
+  0% {
+    transform: translateY(0);
+  }
   0% {
     transform: translateY(-10px);
   }

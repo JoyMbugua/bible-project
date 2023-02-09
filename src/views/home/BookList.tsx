@@ -38,6 +38,7 @@ export default function BooksList() {
     const [page, setPage] = useState(0)
     const [itemsPerpage, setItemsPerPage] = useState(12)
     const [displayItems, setDisplayItems] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
 
     const { isFetching: isFetchingBooks, error: booksError } = result
 
@@ -46,21 +47,30 @@ export default function BooksList() {
     if (isFetchingBooks) return <Loader />
 
     const setPageItems = (data: BibleBook[]) => {
-        if (page === 1) {
-            return data.slice(0, page * itemsPerpage)
+        if (currentPage === 1) {
+            return data.slice(0, currentPage * itemsPerpage)
         } else {
-            return data.slice(page * itemsPerpage, page * itemsPerpage + itemsPerpage)
+            return data.slice(currentPage * itemsPerpage, currentPage * itemsPerpage + itemsPerpage)
         }
     }
 
-    const numOfPages = Math.ceil(booksData?.data / itemsPerpage)
+    const numOfPages = Math.ceil(booksData.data.length / itemsPerpage)
+    console.log(numOfPages);
+
 
     return (
 
-        <main className="book-list">
-            {setPageItems(booksData.data).map((book) => (
-                <BookItem key={book.id} book={book} />
-            ))}
+        <main>
+            <section className="book-list">
+                {setPageItems(booksData.data).map((book) => (
+                    <BookItem key={book.id} book={book} />
+                ))}
+            </section>
+            <section className="pagination">
+                {new Array(numOfPages).fill(null).map((item, i) => (
+                    <div onClick={() => { setCurrentPage(i + 1) }}>{i + 1}</div>
+                ))}
+            </section>
         </main>
     );
 }
