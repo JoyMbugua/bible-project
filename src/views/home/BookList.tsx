@@ -1,4 +1,5 @@
 import { Cloudinary } from "@cloudinary/url-gen";
+import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 import { FixedSizeList } from "react-window";
@@ -67,9 +68,16 @@ export default function BooksList() {
                 ))}
             </section>
             <section className="pagination">
+                <div>
+                    <IconArrowLeft />
+                </div>
                 {new Array(numOfPages).fill(null).map((item, i) => (
                     <div onClick={() => { setCurrentPage(i + 1) }}>{i + 1}</div>
                 ))}
+                <div>
+                    <IconArrowRight />
+                </div>
+
             </section>
         </main>
     );
