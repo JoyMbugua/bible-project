@@ -2,7 +2,6 @@ import { Cloudinary } from "@cloudinary/url-gen";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
-import { FixedSizeList } from "react-window";
 import Img from '../../assets/art2.png';
 import Loader from '../../components/Loader';
 import { selectCovers } from '../../store/features/covers';
@@ -10,7 +9,6 @@ import { useTypedSelector } from '../../store/hooks';
 import { useGetBooksQuery } from '../../store/services/bible';
 import { BibleBook } from '../../types';
 import './BookList.scss';
-import DailyVerse from "./daily-verse";
 
 const cloud = new Cloudinary({
     cloud: {
