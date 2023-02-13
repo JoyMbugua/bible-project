@@ -53,7 +53,7 @@ export default function BooksList() {
         }
     }
 
-    const numOfPages = Math.ceil(booksData.data.length / itemsPerpage)
+    const numOfPages = Math.floor(booksData.data.length / itemsPerpage)
     console.log(numOfPages);
 
 
@@ -66,13 +66,13 @@ export default function BooksList() {
                 ))}
             </section>
             <section className="pagination">
-                <div>
+                <div onClick={() => setCurrentPage(prev => prev === 0 ? numOfPages : prev - 1)}>
                     <IconArrowLeft />
                 </div>
                 {new Array(numOfPages).fill(null).map((item, i) => (
                     <div onClick={() => { setCurrentPage(i + 1) }}>{i + 1}</div>
                 ))}
-                <div>
+                <div onClick={() => setCurrentPage(prev => numOfPages ? 0 : prev + 1)}>
                     <IconArrowRight />
                 </div>
 
