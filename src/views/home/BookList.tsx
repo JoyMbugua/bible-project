@@ -66,13 +66,13 @@ export default function BooksList() {
                 ))}
             </section>
             <section className="pagination">
-                <div onClick={() => setCurrentPage(prev => prev === 0 ? numOfPages : prev - 1)}>
+                <div onClick={() => setCurrentPage(prev => prev === 0 ? numOfPages : prev - 1)} tabIndex={0}>
                     <IconArrowLeft />
                 </div>
                 {new Array(numOfPages).fill(null).map((item, i) => (
-                    <div onClick={() => { setCurrentPage(i + 1) }}>{i + 1}</div>
+                    <div onClick={() => { setCurrentPage(i + 1) }} tabIndex={0}>{i + 1}</div>
                 ))}
-                <div onClick={() => setCurrentPage(prev => numOfPages ? 0 : prev + 1)}>
+                <div onClick={() => setCurrentPage(prev => numOfPages ? 0 : prev + 1)} tabIndex={0}>
                     <IconArrowRight />
                 </div>
 
