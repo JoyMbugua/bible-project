@@ -21,7 +21,7 @@ const BookItem = ({ book }) => {
     return (
         <Link key={book.id} to={`/${book.id}/1`}>
             <div className="book-container">
-                <div className="book" style={{ backgroundImage: `url(${resources[book.id]?.imgUrl})` }}>
+                <div className="book">
                     <div className="heading">
                         <img src={Img} alt="" />
                         <div className="title">{book.name}</div>

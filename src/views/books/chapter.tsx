@@ -23,7 +23,7 @@ export default function Chapter() {
     const { data: chapter, isFetching: isFetchingChapter, error: chapterError } = useGetChapterContentQuery(actualChapterId)
     if (isFetchingChapter) return <Loader />
     if (chapterError) return <h2>Could not fetch chapter contents. Error occurred</h2>
-    const chapterData = chapter.data.content.replace(/(<([^>]+)>)/ig, '').split(/[0-9$]/g).filter(Boolean);
+    const chapterData = chapter.data.content.replace(/(<([^>]+)>)/ig, '').split(/(?:\.\s*|\.[^\d\s]*)?\d+(?=[a-zA-Z'"“])/g).filter(Boolean).filter((str: string) => str.trim() !== "")
     const intro = chapterData[0]
 
     return (
@@ -50,7 +50,7 @@ export default function Chapter() {
                                 <sup className='verseNo'>{i + 1}</sup>
                                 {par}
                                 {isHighlighted && highlightedVerse.id === i && (
-                                    <ActionsModal verse={highlightedVerse} book={bookId} setStatus={setStatus} setMessage={setMessage} />
+                                    <ActionsModal verse={highlightedVerse} book={actualChapterId.replace('.', ' ')} setStatus={setStatus} setMessage={setMessage} />
                                 )}
                             </div>
 
@@ -68,7 +68,7 @@ export default function Chapter() {
 }
 
 function ActionsModal({ verse, book, setStatus, setMessage }) {
-
+    console.log({ book })
     const copyVerse = async () => {
         try {
             await navigator.clipboard.writeText(`${verse.text}\n ~ ${book}:${verse.id + 1}`)
