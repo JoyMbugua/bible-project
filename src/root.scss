@@ -23,6 +23,33 @@ code {
 .toggle__next {
   display: flex;
   justify-content: space-between;
+
+  :first-child {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  :last-child {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  button {
+    background-color: transparent;
+    border: 3px solid var(--color-orange);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: grid;
+    place-content: center;
+    gap: 5px;
+    padding: 5px 20px;
+    text-transform: uppercase;
+    margin-bottom: 1em;
+
+    span {
+      margin: auto;
+    }
+  }
 }
 
 @media screen and (min-width: 768px) {

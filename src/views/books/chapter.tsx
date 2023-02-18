@@ -1,6 +1,6 @@
 import { IconClipboard, IconClipboardCheck, IconCopy } from '@tabler/icons-react';
 import { Fragment, useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Alert from '../../components/Alert';
 import Loader from '../../components/Loader';
 import PreviousNext from '../../components/previous-next';
@@ -13,23 +13,46 @@ interface Highlight {
 }
 export default function Chapter() {
     const { bookId, chapterId } = useParams()
+    const navigate = useNavigate()
     const [isHighlighted, setIsHighlighted] = useState(false)
     const [status, setStatus] = useState('')
     const [message, setMessage] = useState(null)
     const [highlightedVerse, setHighlightedVerse] = useState<Highlight>({ text: '', id: '' })
     const { data, isFetching, error } = useGetChaptersQuery(bookId)
-    const actualChapterId = data.data.slice(1).map((item: ChapterType) => item.id)[Number(chapterId) - 1]
+    const bookChapters = data.data.slice(1).map((item: ChapterType) => item.id);
+    const actualChapterId = bookChapters[Number(chapterId) - 1]
 
-    const { data: chapter, isFetching: isFetchingChapter, error: chapterError } = useGetChapterContentQuery(actualChapterId)
+    const { data: chapter, isFetching: isFetchingChapter, error: chapterError } = useGetChapterContentQuery(actualChapterId);
+
     if (isFetchingChapter) return <Loader />
+
     if (chapterError) return <h2>Could not fetch chapter contents. Error occurred</h2>
+
     const chapterData = chapter.data.content.replace(/(<([^>]+)>)/ig, '').split(/(?:\.\s*|\.[^\d\s]*)?\d+(?=[a-zA-Z'"“])/g).filter(Boolean).filter((str: string) => str.trim() !== "")
     const intro = chapterData[0]
+    /* 
+     <NavLink
+                                        key={chap.id}
+                                        to={`/${bookId}/${chap.number}`}
+                                        state={{ chapterId: chap.id }}
+                                        className={({ isPending, isActive }) => isActive ? 'active' : isPending ? 'pending' : ''}>
+                                        {chap.reference}
+                                    </NavLink>
+    */
+    const handleNext = (): void => {
+        navigate(`/${bookId}/${Number(chapterId) + 1}`)
+    }
+    const handlePrevious = (): void => {
+        navigate(`/${bookId}/${Number(chapterId) - 1}`)
+    }
 
     return (
         <div className="chapter">
             {status === 'success' && <Alert message={message} status={status} />}
             <h3>{intro}</h3>
+            <div className="navigate">
+                <PreviousNext handleNext={handleNext} handlePrevious={handlePrevious} currentItem={Number(chapterId)} data={bookChapters} />
+            </div>
             <article>
                 {
                     chapterData.slice(1).map((par: string, i: number) => (
@@ -61,7 +84,7 @@ export default function Chapter() {
                 }
             </article>
             <div className="navigate">
-                <PreviousNext />
+                <PreviousNext handleNext={handleNext} handlePrevious={handlePrevious} currentItem={Number(chapterId)} data={bookChapters} />
             </div>
         </div >
     )
