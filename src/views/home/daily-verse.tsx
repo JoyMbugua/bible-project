@@ -1,17 +1,18 @@
 import Loader from '../../components/Loader'
 import { useGetDailyVerseQuery } from '../../store/services/bible'
-import Flower from '../../assets/floral.png'
+import { useSelector } from 'react-redux'
+import { selectCurrentLangauge } from '../../store/features/language'
 
 
 export default function DailyVerse() {
-    const { data: dailyVerse, isFetching, error } = useGetDailyVerseQuery()
+    const bibleId = useSelector(selectCurrentLangauge)
+    const { data: dailyVerse, isFetching, error } = useGetDailyVerseQuery(bibleId)
     return (
         <>
             {isFetching && <Loader />}
             <div className="verse">
-                <img alt="" src={Flower} width="64" height="64" />
-                <p>{dailyVerse?.data.passages[0].content.replace(/(<([^>]+)>)/ig, '')}</p>
-                <p>{dailyVerse?.data.passages[0].reference}</p>
+                <p>{dailyVerse?.data.passages[0].content.replace(/(<([^>]+)>)|[0-9]/ig, '')}</p>
+                <p>&#x7E;{dailyVerse?.data.passages[0].reference}&#x7E;</p>
             </div>
         </>
 

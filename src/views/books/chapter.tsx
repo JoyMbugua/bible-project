@@ -1,9 +1,11 @@
 import { IconClipboard, IconClipboardCheck, IconCopy } from '@tabler/icons-react';
 import { Fragment, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Alert from '../../components/Alert';
 import Loader from '../../components/Loader';
 import PreviousNext from '../../components/previous-next';
+import { selectCurrentLangauge } from '../../store/features/language';
 import { useGetChapterContentQuery, useGetChaptersQuery } from '../../store/services/bible';
 import { Chapter as ChapterType } from '../../types';
 
@@ -16,13 +18,13 @@ export default function Chapter() {
     const navigate = useNavigate()
     const [isHighlighted, setIsHighlighted] = useState(false)
     const [status, setStatus] = useState('')
+    const bibleId = useSelector(selectCurrentLangauge)
     const [message, setMessage] = useState(null)
     const [highlightedVerse, setHighlightedVerse] = useState<Highlight>({ text: '', id: '' })
-    const { data, isFetching, error } = useGetChaptersQuery(bookId)
+    const { data, isFetching, error } = useGetChaptersQuery({bibleId, bookId})
     const bookChapters = data.data.slice(1).map((item: ChapterType) => item.id);
     const actualChapterId = bookChapters[Number(chapterId) - 1]
-
-    const { data: chapter, isFetching: isFetchingChapter, error: chapterError } = useGetChapterContentQuery(actualChapterId);
+    const { data: chapter, isFetching: isFetchingChapter, error: chapterError } = useGetChapterContentQuery({bibleId, chapterId: actualChapterId});
 
     if (isFetchingChapter) return <Loader />
 

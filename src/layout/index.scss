@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bebas+Neue&family=Gentium+Book+Basic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bebas+Neue&family=Gentium+Book+Basic&family=Open+Sans:wght@700&display=swap');
 
 .body {
   display: grid;
@@ -25,10 +25,15 @@ header {
 h1 {
   text-align: center;
   text-transform: uppercase;
-  font-family: 'Alfa Slab One', cursive;
-  color: #555;
-  font-size: 2.5rem;
-  text-shadow: #ededed 3px 2px 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 4rem;
+  color: transparent;
+  background-image: url(../assets/purple-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-clip: text;
+  margin-top: 2em;
+  letter-spacing: 3px;
 }
 
 .alert {

@@ -10,6 +10,9 @@ import HomePage from './views/home';
 import ErrorPage from './components/error-page';
 import Chapter from './views/books/chapter';
 import './root.scss'
+import BookProvider from './context/books';
+import { setLanguage } from './store/features/language';
+import {config} from './config'
 
 const router = createBrowserRouter([
     {
@@ -37,13 +40,18 @@ const router = createBrowserRouter([
         ]
     }
 ])
+
+
+store.dispatch(setLanguage({ lang: config.defaultLang }))
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <RouterProvider router={router} />
+            <BookProvider>
+                <RouterProvider router={router} />
+            </BookProvider>
         </Provider>
     </React.StrictMode>
 );

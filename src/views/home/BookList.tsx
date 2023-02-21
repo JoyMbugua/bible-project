@@ -1,10 +1,12 @@
 import { Cloudinary } from "@cloudinary/url-gen";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import Img from '../../assets/art2.png';
 import Loader from '../../components/Loader';
 import { selectCovers } from '../../store/features/covers';
+import { selectCurrentLangauge } from "../../store/features/language";
 import { useTypedSelector } from '../../store/hooks';
 import { useGetBooksQuery } from '../../store/services/bible';
 import { BibleBook } from '../../types';
@@ -21,7 +23,7 @@ const BookItem = ({ book }) => {
     return (
         <Link key={book.id} to={`/${book.id}/1`}>
             <div className="book-container">
-                <div className="book">
+                <div className="book" style={{ backgroundImage: `url(${resources[book.id]?.imgUrl})`}}>
                     <div className="heading">
                         <img src={Img} alt="" />
                         <div className="title">{book.name}</div>
@@ -33,7 +35,8 @@ const BookItem = ({ book }) => {
 }
 
 export default function BooksList() {
-    const { data: booksData, ...result } = useGetBooksQuery()
+    const bibleId = useSelector(selectCurrentLangauge)
+    const { data: booksData, ...result } = useGetBooksQuery(bibleId)
     const [page, setPage] = useState(0)
     const [itemsPerpage, setItemsPerPage] = useState(12)
     const [displayItems, setDisplayItems] = useState([])
@@ -72,7 +75,7 @@ export default function BooksList() {
                 {new Array(numOfPages).fill(null).map((item, i) => (
                     <div onClick={() => { setCurrentPage(i + 1) }} tabIndex={0}>{i + 1}</div>
                 ))}
-                <div onClick={() => setCurrentPage(prev => numOfPages ? 0 : prev + 1)} tabIndex={0}>
+                <div onClick={() => setCurrentPage(prev => prev === numOfPages ? 0 : prev + 1)} tabIndex={0}>
                     <IconArrowRight />
                 </div>
 
