@@ -1,6 +1,5 @@
 const VERSES = [
   `JER.29.11`,
-  `PSA.23`,
   `1COR.4.5`,
   `PHP.4.13`,
   `JHN.3.16`,
@@ -25,6 +24,7 @@ const VERSES = [
   `LUK.6.23`,
   `ROM.8.37`,
   `NEH.8.10`,
+  `PSA.23.6`,
   `PROV.16.3`,
   `2CHR.15.7`,
   `JHN.1.16`,

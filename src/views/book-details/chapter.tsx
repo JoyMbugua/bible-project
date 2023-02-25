@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Alert from '../../components/Alert';
-import Loader from '../../components/Loader';
+import Loader from '../../components/loader/Loader';
 import PreviousNext from '../../components/previous-next';
 import { selectCurrentLangauge } from '../../store/features/language';
 import { useGetChapterContentQuery, useGetChaptersQuery } from '../../store/services/bible';
@@ -16,14 +16,20 @@ interface Highlight {
 export default function Chapter() {
     const { bookId, chapterId } = useParams()
     const navigate = useNavigate()
+
+    const bibleId = useSelector(selectCurrentLangauge)
+    const { data, isFetching, error } = useGetChaptersQuery({bibleId, bookId})
+
     const [isHighlighted, setIsHighlighted] = useState(false)
     const [status, setStatus] = useState('')
-    const bibleId = useSelector(selectCurrentLangauge)
     const [message, setMessage] = useState(null)
     const [highlightedVerse, setHighlightedVerse] = useState<Highlight>({ text: '', id: '' })
-    const { data, isFetching, error } = useGetChaptersQuery({bibleId, bookId})
+
+    // fetch the chapter id
     const bookChapters = data.data.slice(1).map((item: ChapterType) => item.id);
     const actualChapterId = bookChapters[Number(chapterId) - 1]
+
+    // use chapter id to fetch details
     const { data: chapter, isFetching: isFetchingChapter, error: chapterError } = useGetChapterContentQuery({bibleId, chapterId: actualChapterId});
 
     if (isFetchingChapter) return <Loader />
@@ -32,15 +38,8 @@ export default function Chapter() {
 
     const chapterData = chapter.data.content.replace(/(<([^>]+)>)/ig, '').split(/(?:\.\s*|\.[^\d\s]*)?\d+(?=[a-zA-Z'"“])/g).filter(Boolean).filter((str: string) => str.trim() !== "")
     const intro = chapterData[0]
-    /* 
-     <NavLink
-                                        key={chap.id}
-                                        to={`/${bookId}/${chap.number}`}
-                                        state={{ chapterId: chap.id }}
-                                        className={({ isPending, isActive }) => isActive ? 'active' : isPending ? 'pending' : ''}>
-                                        {chap.reference}
-                                    </NavLink>
-    */
+   
+    // pagination
     const handleNext = (): void => {
         navigate(`/${bookId}/${Number(chapterId) + 1}`)
     }

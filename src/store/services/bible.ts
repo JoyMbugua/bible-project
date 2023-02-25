@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import verseOfTheDay from './verses';
+import verseOfTheDay from '../../data/verses';
 
 export const bibleApi = createApi({
   reducerPath: 'bibleApi',

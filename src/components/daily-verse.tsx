@@ -1,7 +1,7 @@
-import Loader from '../../components/Loader'
-import { useGetDailyVerseQuery } from '../../store/services/bible'
+import Loader from './loader/Loader'
+import { useGetDailyVerseQuery } from '../store/services/bible'
 import { useSelector } from 'react-redux'
-import { selectCurrentLangauge } from '../../store/features/language'
+import { selectCurrentLangauge } from '../store/features/language'
 
 
 export default function DailyVerse() {

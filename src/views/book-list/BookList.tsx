@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import Img from '../../assets/art2.png';
-import Loader from '../../components/Loader';
+import Loader from '../../components/loader/Loader';
 import { selectCovers } from '../../store/features/covers';
 import { selectCurrentLangauge } from "../../store/features/language";
 import { useTypedSelector } from '../../store/hooks';
@@ -37,9 +37,7 @@ const BookItem = ({ book }) => {
 export default function BooksList() {
     const bibleId = useSelector(selectCurrentLangauge)
     const { data: booksData, ...result } = useGetBooksQuery(bibleId)
-    const [page, setPage] = useState(0)
     const [itemsPerpage, setItemsPerPage] = useState(12)
-    const [displayItems, setDisplayItems] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
 
     const { isFetching: isFetchingBooks, error: booksError } = result
@@ -73,7 +71,7 @@ export default function BooksList() {
                     <IconArrowLeft />
                 </div>
                 {new Array(numOfPages).fill(null).map((item, i) => (
-                    <div onClick={() => { setCurrentPage(i + 1) }} tabIndex={0}>{i + 1}</div>
+                    <div key={i} onClick={() => { setCurrentPage(i + 1) }} tabIndex={0}>{i + 1}</div>
                 ))}
                 <div onClick={() => setCurrentPage(prev => prev === numOfPages ? 0 : prev + 1)} tabIndex={0}>
                     <IconArrowRight />

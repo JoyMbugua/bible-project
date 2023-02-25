@@ -1,11 +1,9 @@
-import useBookId from '../hooks/useBookId';
 import langs from '../data/langs.json';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentLangauge, setLanguage } from '../store/features/language';
 import languageData from '../data/langs.json';
 
 export default function SwitchLang() {
-  const { book } = useBookId();
   const dispatch = useDispatch();
   const currentLang = useSelector(selectCurrentLangauge)
   const handleChange = (e) => {
