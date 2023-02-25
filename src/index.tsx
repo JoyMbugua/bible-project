@@ -50,7 +50,8 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <RouterProvider router={router} />
-            <Toaster />
+            <Toaster position="bottom-left"
+                reverseOrder={false} />
         </Provider>
     </React.StrictMode>
 );

@@ -9,7 +9,7 @@ export default function HomePage() {
     const { isConnected } = useNetwork()
 
     useEffect(() => {
-        if (isConnected) toast.success('you are online')
+        if (!isConnected) toast.error('you are offline')
     }, [isConnected])
 
     if (!isConnected) return (

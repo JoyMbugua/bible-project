@@ -118,17 +118,43 @@ i {
 .verseNo {
   user-select: none;
 }
+.verse-actions {
+    display: flex;
+    flex-direction: column;
+    z-index: 99;
+    margin-top: .5em;
+    background-color: white;
+    padding: 16px;
+    width: fit-content;
+    box-shadow: 5px 5px 5px #f5f5f5;
+
+    .actions {
+        display: flex;
+    }
+
+    .highlighter {
+        display: flex;
+        gap: 10px;
+        margin-top: 5px;
+    }
+
+    .highlight {
+        border: none;
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+    }
+
+}
 .copier {
-  display: inline-flex;
-  color: #e76f51;
-  //    color: white;
+  color: white;
   padding: 5px 15px;
   margin-left: 5px;
   margin-top: 5px;
-  z-index: 99;
   border-radius: 10px;
-  border: 1px solid #e76f51;
-  align-items: center;
+  border: none;
+  background-color: hotpink;
+
 }
 
 .chapter article {

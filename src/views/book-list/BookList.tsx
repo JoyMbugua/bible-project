@@ -55,8 +55,6 @@ export default function BooksList() {
     }
 
     const numOfPages = Math.floor(booksData.data.length / itemsPerpage)
-    console.log(numOfPages);
-
 
     return (
 
