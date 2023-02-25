@@ -1,15 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bebas+Neue&family=Gentium+Book+Basic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bebas+Neue&family=Gentium+Book+Basic&family=Open+Sans:wght@700&display=swap');
 
 .body {
   display: grid;
+  margin: auto;
   grid-template-columns: 100%;
   grid-template-rows: auto 1fr auto;
   gap: 10px;
+  width: 80%;
   min-height: 100vh;
   background-color: whitesmoke;
   color: #1e1f1e;
   //   background-image: url(./assets/bg.webp);
   font-family: 'Gentium Book Basic', serif;
+  box-shadow: 5px 5px 30px 5px #4a4848;
 }
 
 header {
@@ -25,10 +28,15 @@ header {
 h1 {
   text-align: center;
   text-transform: uppercase;
-  font-family: 'Alfa Slab One', cursive;
-  color: #555;
-  font-size: 2.5rem;
-  text-shadow: #ededed 3px 2px 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 4rem;
+  color: transparent;
+  background-image: url(../assets/plants-bg.jpg);
+  background-repeat: repeat-x;
+  background-size: contain;
+  background-clip: text;
+  margin-top: 2em;
+  letter-spacing: 3px;
 }
 
 .alert {

@@ -1,13 +1,16 @@
+import { useSelector } from "react-redux";
 import { NavLink, Outlet, useParams } from "react-router-dom";
 import { FixedSizeList } from "react-window";
-import Loader from "../../components/Loader";
+import Loader from "../../components/loader/Loader";
+import { selectCurrentLangauge } from "../../store/features/language";
 import { useGetChaptersQuery } from "../../store/services/bible";
 import './index.scss';
 
 
 export default function BibleBook() {
     const { bookId } = useParams()
-    const { data, isFetching, error } = useGetChaptersQuery(bookId)
+    const bibleId = useSelector(selectCurrentLangauge)
+    const { data, isFetching, error } = useGetChaptersQuery({ bookId, bibleId })
 
     if (isFetching) return <Loader />
     if (error) return <h2>Error occurred</h2>

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import verseOfTheDay from './verses';
+import verseOfTheDay from '../../data/verses';
 
 export const bibleApi = createApi({
   reducerPath: 'bibleApi',
@@ -12,19 +12,19 @@ export const bibleApi = createApi({
   }),
   endpoints: (builder) => ({
     getBibles: builder.query({ query: () => `/bibles` }),
-    getDailyVerse: builder.query<any, void>({
-      query: () =>
-        `/bibles/${process.env.REACT_APP_BIBLE_ID}/search?query=${verseOfTheDay}`,
+    getDailyVerse: builder.query({
+      query: (bibleId) =>
+        `/bibles/${bibleId}/search?query=${verseOfTheDay}`,
     }),
-    getBooks: builder.query<any, void>({
-      query: () => `/bibles/${process.env.REACT_APP_BIBLE_ID}/books`,
+    getBooks: builder.query({
+      query: (bibleId) => `/bibles/${bibleId}/books`,
       keepUnusedDataFor: Infinity
     }),
     getChapters: builder.query({
-      query: (bookId) =>
-        `/bibles/${process.env.REACT_APP_BIBLE_ID}/books/${bookId}/chapters`,
+      query: ({bookId, bibleId}) =>
+        `/bibles/${bibleId}/books/${bookId}/chapters`,
     }),
-    getChapterContent: builder.query({ query: (chapterId) => `/bibles/${process.env.REACT_APP_BIBLE_ID}/chapters/${chapterId}`})
+    getChapterContent: builder.query({ query: ({chapterId, bibleId}) => `/bibles/${bibleId}/chapters/${chapterId}`})
   }),
 });
 

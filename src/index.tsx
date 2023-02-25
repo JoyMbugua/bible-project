@@ -4,12 +4,15 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './store';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Layout from './layout';
-import BibleBook from './views/books';
+import Layout from './layout/main';
+import BibleBook from './views/book-details';
 import HomePage from './views/home';
 import ErrorPage from './components/error-page';
-import Chapter from './views/books/chapter';
+import Chapter from './views/book-details/chapter';
 import './root.scss'
+import { setLanguage } from './store/features/language';
+import { config } from './config'
+import { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
     {
@@ -37,6 +40,9 @@ const router = createBrowserRouter([
         ]
     }
 ])
+
+
+store.dispatch(setLanguage({ lang: config.defaultLang }))
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
@@ -44,6 +50,7 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <RouterProvider router={router} />
+            <Toaster />
         </Provider>
     </React.StrictMode>
 );
