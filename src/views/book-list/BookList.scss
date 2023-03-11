@@ -123,6 +123,10 @@ main {
         color: var(--light-text);
         // transform: translateY(-5px);
     }
+    .activePage {
+        background-color: var(--color-orange);
+        color: var(--light-text);
+    }
 }
 
 .pagination > * {

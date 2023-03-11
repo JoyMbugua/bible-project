@@ -17,9 +17,25 @@ interface Highlight {
 }
 
 function ChapterVerse({ verse, index, chapterId, setStatus, setMessage }) {
+    const { bookId: book = '' } = useParams()
     const [isHighlighted, setIsHighlighted] = useState(false)
     const [highlightedVerse, setHighlightedVerse] = useState<Highlight>({ text: '', id: '' })
-    const [bgColor, setBgColor] = useState('#fff')
+    const [bgColor, setBgColor] = useState('')
+    const [actualColor, setActualColor] = useState('#fff')
+
+    useEffect(() => {
+        const verseId = `${index + 1}`
+        const data = JSON.parse(localStorage.getItem(book) || '{}')
+        const existingChapter = data[chapterId] // {5: 'khaki', 6: 'green'}}
+        const colorValue = existingChapter && existingChapter[verseId]
+        setActualColor(colorValue)
+        if (colorValue === bgColor) return
+        const newValue = { ...existingChapter, [verseId]: bgColor }
+        if (Boolean(bgColor)) {
+            localStorage.setItem(book, JSON.stringify({ ...data, [chapterId]: newValue }))
+        }
+    }, [bgColor])
+
 
     const handleSelection = () => {
         const selection = window.getSelection() || ''
@@ -38,7 +54,7 @@ function ChapterVerse({ verse, index, chapterId, setStatus, setMessage }) {
     return (
         <>
             <div className='normal-verse' onClick={handleSelection}>
-                <div className='verse-content' style={{ backgroundColor: bgColor }}>
+                <div id={`${chapterId}:${verse.id + 1}`} className='verse-content' style={{ backgroundColor: actualColor }}>
                     <sup className='verseNo'>{index + 1}</sup>
                     {verse}
                 </div>
@@ -58,7 +74,7 @@ function ChapterVerse({ verse, index, chapterId, setStatus, setMessage }) {
     )
 }
 export default function Chapter() {
-    const { bookId, chapterId } = useParams()
+    const { bookId = '', chapterId = '' } = useParams()
     const navigate = useNavigate()
 
     const bibleId = useSelector(selectCurrentLangauge)
@@ -113,10 +129,12 @@ export default function Chapter() {
 
 function ActionsModal({ verse, book, setStatus, setMessage, setColor }) {
     const [showHighligher, setShowHighlighter] = useState('none')
+    const [copied, setCopied] = useState(false)
     const copyVerse = async () => {
         try {
             await navigator.clipboard.writeText(`${verse.text}\n ~ ${book}:${verse.id + 1}`)
             setStatus('success')
+            setCopied(true)
             toast.success('verse copied to clipboard!', {
                 style: {
                     color: 'black',
@@ -142,7 +160,7 @@ function ActionsModal({ verse, book, setStatus, setMessage, setColor }) {
         <div className='verse-actions'>
             <div className="actions">
                 <button className='copier' onClick={() => setShowHighlighter('flex')}>highlight</button>
-                <button className='copier' onClick={copyVerse}> copy</button>
+                <button className='copier' onClick={copyVerse}>{copied ? 'copied' : 'copy'}</button>
             </div>
             <div className="highlighter" style={{ display: showHighligher }}>
                 {colors.map((color) => (

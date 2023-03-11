@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, Outlet, useParams } from "react-router-dom";
 import { FixedSizeList } from "react-window";
@@ -12,9 +13,17 @@ export default function BibleBook() {
     const bibleId = useSelector(selectCurrentLangauge)
     const { data, isFetching, error } = useGetChaptersQuery({ bookId, bibleId })
 
+    useEffect(() => {
+        if (bookId) {
+            const stored = localStorage.getItem(bookId)
+            if (!stored) localStorage.setItem(bookId, JSON.stringify({}))
+        }
+    }, [bookId])
+
     if (isFetching) return <Loader />
     if (error) return <h2>Error occurred</h2>
-    const chapters = data.data.slice(1)
+    const chapters = data.data
+    // console.log(data.data);
 
     return (
         <div className="bibleBook">

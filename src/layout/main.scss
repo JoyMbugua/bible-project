@@ -68,3 +68,9 @@ footer {
  a {
     text-decoration: none;
  }
+
+ @media screen and (max-width: 280px) {
+    .body {
+        width: 100%;
+    }
+ }

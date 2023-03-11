@@ -23,7 +23,7 @@ const BookItem = ({ book }) => {
     return (
         <Link key={book.id} to={`/${book.id}/1`}>
             <div className="book-container">
-                <div className="book" style={{ backgroundImage: `url(${resources[book.id]?.imgUrl})`}}>
+                <div className="book" style={{ backgroundImage: `url(${resources[book.id]?.imgUrl})` }}>
                     <div className="heading">
                         <img src={Img} alt="" />
                         <div className="title">{book.name}</div>
@@ -38,25 +38,25 @@ export default function BooksList() {
     const bibleId = useSelector(selectCurrentLangauge)
     const { data: booksData, ...result } = useGetBooksQuery(bibleId)
     const [itemsPerpage, setItemsPerPage] = useState(12)
-    const [currentPage, setCurrentPage] = useState(1)
+    const [currentPage, setCurrentPage] = useState(0)
 
     const { isFetching: isFetchingBooks, error: booksError } = result
-
 
     if (booksError) return <p>Ooopsie...something went wrong</p>;
     if (isFetchingBooks) return <Loader />
 
     const setPageItems = (data: BibleBook[]) => {
-        if (currentPage === 1) {
-            return data.slice(0, currentPage * itemsPerpage)
+        if (currentPage === 0) {
+            return data.slice(0, 1 * itemsPerpage)
         } else {
             return data.slice(currentPage * itemsPerpage, currentPage * itemsPerpage + itemsPerpage)
         }
     }
 
-    const numOfPages = Math.floor(booksData.data.length / itemsPerpage)
+    const numOfPages = Math.ceil(booksData.data.length / itemsPerpage)
 
     return (
+
 
         <main>
             <section className="book-list">
@@ -65,13 +65,23 @@ export default function BooksList() {
                 ))}
             </section>
             <section className="pagination">
-                <div onClick={() => setCurrentPage(prev => prev === 0 ? numOfPages : prev - 1)} tabIndex={0}>
+                <div onClick={() => {
+                    setCurrentPage(prev => prev === 0 ? numOfPages : prev - 1)
+                }} tabIndex={0}>
                     <IconArrowLeft />
                 </div>
                 {new Array(numOfPages).fill(null).map((item, i) => (
-                    <div key={i} onClick={() => { setCurrentPage(i + 1) }} tabIndex={0}>{i + 1}</div>
+                    <div className={currentPage === i ? 'activePage' : ''} key={i} onClick={() => {
+                        setCurrentPage(i)
+                    }} tabIndex={0}>{i + 1}</div>
                 ))}
-                <div onClick={() => setCurrentPage(prev => prev === numOfPages ? 0 : prev + 1)} tabIndex={0}>
+                <div onClick={() => {
+                    setCurrentPage(prev => {
+                        console.log({ prev, numOfPages });
+
+                        return prev === numOfPages ? 0 : prev + 1
+                    })
+                }} tabIndex={0}>
                     <IconArrowRight />
                 </div>
 
