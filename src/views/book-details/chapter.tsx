@@ -1,7 +1,7 @@
-import { IconClipboard, IconClipboardCheck, IconCopy } from '@tabler/icons-react';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Alert from '../../components/Alert';
 import Loader from '../../components/loader/Loader';
 import PreviousNext from '../../components/previous-next';
@@ -9,7 +9,6 @@ import { colors } from '../../data/colors';
 import { selectCurrentLangauge } from '../../store/features/language';
 import { useGetChapterContentQuery, useGetChaptersQuery } from '../../store/services/bible';
 import { Chapter as ChapterType } from '../../types';
-import { toast } from 'react-hot-toast'
 
 interface Highlight {
     text: string,
@@ -65,6 +64,7 @@ function ChapterVerse({ verse, index, chapterId, setStatus, setMessage }) {
                         setStatus={setStatus}
                         setMessage={setMessage}
                         setColor={setBgColor}
+                        setIsHighlighted={setIsHighlighted}
                     />
                 )}
             </div>
@@ -108,13 +108,14 @@ export default function Chapter() {
     return (
         <div className="chapter">
             {status === 'success' && <Alert message={message} status={status} />}
-            <h3>{intro}</h3>
+            {/* <h3>{intro}</h3> */}
             <div className="navigate">
                 <PreviousNext handleNext={handleNext} handlePrevious={handlePrevious} currentItem={Number(chapterId)} data={bookChapters} />
             </div>
             <article>
+                {/* chapterData.slice(1) */}
                 {
-                    chapterData.slice(1).map((par: string, i: number) => (
+                    chapterData.map((par: string, i: number) => (
                         <ChapterVerse verse={par} key={i} index={i} setMessage={setMessage} setStatus={setStatus} chapterId={actualChapterId} />
                     ))
 
@@ -127,7 +128,7 @@ export default function Chapter() {
     )
 }
 
-function ActionsModal({ verse, book, setStatus, setMessage, setColor }) {
+function ActionsModal({ verse, book, setStatus, setMessage, setColor, setIsHighlighted }) {
     const [showHighligher, setShowHighlighter] = useState('none')
     const [copied, setCopied] = useState(false)
     const copyVerse = async () => {
@@ -145,6 +146,7 @@ function ActionsModal({ verse, book, setStatus, setMessage, setColor }) {
                     secondary: 'palegreen',
                 },
             })
+            setIsHighlighted(false)
         } catch (err) {
             setStatus('failed')
         }
@@ -156,10 +158,15 @@ function ActionsModal({ verse, book, setStatus, setMessage, setColor }) {
         }, 2500)
     }, [])
 
+    const handleHighlighter = () => {
+        setShowHighlighter('flex')
+        setIsHighlighted(false);
+    }
+
     return (
         <div className='verse-actions'>
             <div className="actions">
-                <button className='copier' onClick={() => setShowHighlighter('flex')}>highlight</button>
+                <button className='copier' onClick={handleHighlighter}>highlight</button>
                 <button className='copier' onClick={copyVerse}>{copied ? 'copied' : 'copy'}</button>
             </div>
             <div className="highlighter" style={{ display: showHighligher }}>
