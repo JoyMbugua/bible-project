@@ -17,5 +17,6 @@ jobs:
         env:
           REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
           REACT_APP_BIBLE_ID: ${{ secrets.REACT_APP_BIBLE_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: deploy
         run: npm run deploy
