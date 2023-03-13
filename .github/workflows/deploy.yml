@@ -17,9 +17,10 @@ jobs:
         env:
           REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
           REACT_APP_BIBLE_ID: ${{ secrets.REACT_APP_BIBLE_ID }}
-      - name: Auth
-        run: |
-          git config --global user.email "mbuguajoy52@gmail.com"
-          git config --global user.name "JoyMbugua"
+
       - name: deploy
-        run: npm run deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: build
