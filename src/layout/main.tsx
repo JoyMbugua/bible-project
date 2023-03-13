@@ -10,6 +10,7 @@ export default function MainLayout() {
     const dispatch = useAppDispatch()
     useEffect(() => {
         dispatch(fetchCovers())
+        // eslint-disable-next-line
     }, [])
 
     return (

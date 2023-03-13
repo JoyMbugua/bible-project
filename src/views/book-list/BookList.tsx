@@ -1,4 +1,4 @@
-import { Cloudinary } from "@cloudinary/url-gen";
+// import { Cloudinary } from "@cloudinary/url-gen";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -12,11 +12,11 @@ import { useGetBooksQuery } from '../../store/services/bible';
 import { BibleBook } from '../../types';
 import './BookList.scss';
 
-const cloud = new Cloudinary({
-    cloud: {
-        cloudName: process.env.REACT_APP_CLOUD_NAME
-    }
-})
+// const cloud = new Cloudinary({
+//     cloud: {
+//         cloudName: process.env.REACT_APP_CLOUD_NAME
+//     }
+// })
 
 const BookItem = ({ book }) => {
     const resources = useTypedSelector(selectCovers);
@@ -37,7 +37,7 @@ const BookItem = ({ book }) => {
 export default function BooksList() {
     const bibleId = useSelector(selectCurrentLangauge)
     const { data: booksData, ...result } = useGetBooksQuery(bibleId)
-    const [itemsPerpage, setItemsPerPage] = useState(12)
+    const [itemsPerpage] = useState(12)
     const [currentPage, setCurrentPage] = useState(0)
 
     const { isFetching: isFetchingBooks, error: booksError } = result

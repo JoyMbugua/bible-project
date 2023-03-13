@@ -6,7 +6,7 @@ import { selectCurrentLangauge } from '../store/features/language'
 
 export default function DailyVerse() {
     const bibleId = useSelector(selectCurrentLangauge)
-    const { data: dailyVerse, isFetching, isSuccess, error } = useGetDailyVerseQuery(bibleId)
+    const { data: dailyVerse, isFetching, isSuccess } = useGetDailyVerseQuery(bibleId)
     return (
         <>
             {isFetching && <Loader />}

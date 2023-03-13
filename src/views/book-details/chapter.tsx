@@ -33,7 +33,7 @@ function ChapterVerse({ verse, index, chapterId, setStatus, setMessage }) {
         if (Boolean(bgColor)) {
             localStorage.setItem(book, JSON.stringify({ ...data, [chapterId]: newValue }))
         }
-    }, [bgColor])
+    }, [bgColor, book, chapterId, index])
 
 
     const handleSelection = () => {
@@ -78,7 +78,7 @@ export default function Chapter() {
     const navigate = useNavigate()
 
     const bibleId = useSelector(selectCurrentLangauge)
-    const { data, isFetching, error } = useGetChaptersQuery({ bibleId, bookId })
+    const { data } = useGetChaptersQuery({ bibleId, bookId })
 
     const [status, setStatus] = useState('')
     const [message, setMessage] = useState(null)
@@ -95,7 +95,7 @@ export default function Chapter() {
     if (chapterError) return <h2>Could not fetch chapter contents. Error occurred</h2>
 
     const chapterData = chapter.data.content.replace(/(<([^>]+)>)/ig, '').split(/(?:\.\s*|\.[^\d\s]*)?\d+(?=[a-zA-Z'"“])/g).filter(Boolean).filter((str: string) => str.trim() !== "")
-    const intro = chapterData[0]
+    // const intro = chapterData[0]
 
     // pagination
     const handleNext = (): void => {
@@ -156,6 +156,7 @@ function ActionsModal({ verse, book, setStatus, setMessage, setColor, setIsHighl
         setTimeout(() => {
             setMessage(null)
         }, 2500)
+        // eslint-disable-next-line
     }, [])
 
     const handleHighlighter = () => {
