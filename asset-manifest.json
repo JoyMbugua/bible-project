@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/bible-project/static/css/main.f53947a2.css",
+    "main.js": "/bible-project/static/js/main.634e1928.js",
+    "static/js/787.180b9161.chunk.js": "/bible-project/static/js/787.180b9161.chunk.js",
+    "static/media/greens.jpg": "/bible-project/static/media/greens.834974c86975e2aa5d0c.jpg",
+    "static/media/plants-bg.jpg": "/bible-project/static/media/plants-bg.545c00bf6ed90754871e.jpg",
+    "static/media/vine2.png": "/bible-project/static/media/vine2.31d5f776f28ee1324192.png",
+    "static/media/art2.png": "/bible-project/static/media/art2.b71592bea3092b339a56.png",
+    "static/media/bg.webp": "/bible-project/static/media/bg.d07886e6b51afcaabb71.webp",
+    "index.html": "/bible-project/index.html",
+    "main.f53947a2.css.map": "/bible-project/static/css/main.f53947a2.css.map",
+    "main.634e1928.js.map": "/bible-project/static/js/main.634e1928.js.map",
+    "787.180b9161.chunk.js.map": "/bible-project/static/js/787.180b9161.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f53947a2.css",
+    "static/js/main.634e1928.js"
+  ]
+}
